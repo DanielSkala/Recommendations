@@ -7,7 +7,7 @@ numOfGirls = 13
 numOfUsers = 8
 
 UserList = ["Dano", "Martin", "Filip", "Aron", "Peťo", "Juro", "Bero", "Matej"]
-GirlList = ["Janka", "Katka", "Nana", "Paula", "Mária", "Sára", "Klára", "Natália", "Kaja", "Simona", "Michaela", "Viktória", "Alexandra"]
+GirlList = ["Product1", "Product2", "Product3", "Product4", "Product5", "Product6", "Product7", "Product8", "Product9", "Product10", "Product11", "Product12", "Product13"]
 
 TestUser = []
 
