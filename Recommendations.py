@@ -1,4 +1,5 @@
 import random
+import socket, pickle
 
 zoznam = list()
 options = [5, 3, 0, -3, -5]
@@ -17,6 +18,36 @@ for i in range(numOfUsers):
     for j in range(numOfGirls):
         arr.append(random.choice(options))
     zoznam.append(arr)
+
+
+# ------------------------------------------------------------------------------------------
+
+
+class Client:
+
+    def clientConnect(self):
+        HOST = '127.0.0.1'
+        PORT = 50007
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((HOST, PORT))
+
+        arr = (
+        [[5, -5, 3, 0, 0, -3, 0, -3, 5, 3, -3, 5, 0], [5, -3, -5, 0, 0, 3, 3, 0, -5, 5, -3, 3, 0],
+         [-3, -5, 5, -5, -5, 5, 5, -5, 3, -3, 3, -3, -3],
+         [0, 3, 5, -5, -5, 0, -5, -3, 5, 3, 5, -5, -3], [3, 3, -3, 0, -5, -3, 3, 5, 0, 0, -5, 5, 5],
+         [3, -3, 5, -3, 3, 0, -5, 5, 3, 0, 3, 0, -5], [3, 5, -3, 3, -5, -5, 0, -5, 0, 3, 0, 5, -5],
+         [-3, -5, -3, 0, 5, 0, 5, -3, -3, 5, 5, -5, 3]])
+
+        for i in range(len(zoznam)):
+            UserList.append(zoznam[i][0])
+
+        data_string = pickle.dumps(arr)
+        s.send(data_string)
+
+        data = s.recv(4096)
+        data_arr = pickle.loads(data)
+        s.close()
+        print('Received', repr(data_arr))
 
 # ------------------------------------------------------------------------------------------
 
@@ -64,11 +95,11 @@ class Core:
     def similarity(TestUser, User):
         s = 0
         float = random.uniform(0.0, 0.9)
-        for i in range(numOfUsers):
+        for i in range(numOfGirls):
             if TestUser[i] == User[i] and (TestUser[i] != 0 or User[i] != 0):
                 s = s + pow(max(options), 2)
             s = s + TestUser[i] * User[i]
-        return s + (float/10)
+        return s + (float)
     '''
     # ***TROCHU SA NA TO POZRIET***
     def TestSimilarity(TestUser, User):
