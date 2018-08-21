@@ -4,18 +4,18 @@ import socket, pickle
 zoznam = list()
 options = [5, 3, 0, -3, -5]
 
-numOfGirls = 13
+numOfProducts = 13
 numOfUsers = 8
 
 UserList = ["Dano", "Martin", "Filip", "Aron", "Peťo", "Juro", "Bero", "Matej"]
-GirlList = ["Skoda", "Mercedes", "Audi", "Toyota", "Honda", "Lamborghini", "Daewoo", "Ferrari", "Volkswagen", "Opel", "Ford", "Chevrolet", "Nissan"]
+ProductList = ["Skoda", "Mercedes", "Audi", "Toyota", "Honda", "Lamborghini", "Daewoo", "Ferrari", "Volkswagen", "Opel", "Ford", "Chevrolet", "Nissan"]
 
 TestUser = []
 
 # VYTVORENIE ZOZNAMU
 for i in range(numOfUsers):
     arr = list()
-    for j in range(numOfGirls):
+    for j in range(numOfProducts):
         arr.append(random.choice(options))
     zoznam.append(arr)
 
@@ -52,6 +52,7 @@ class Client:
 
 # ------------------------------------------------------------------------------------------
 
+
 class Statistics:
 
     def bestWorstRating(array, hodnotenie):
@@ -82,9 +83,9 @@ class Statistics:
     @staticmethod
     def statistics(self):
         print("***STATISTICS***", end="")
-        print("Best rated:", GirlList[Statistics.bestWorstRating(zoznam, "top")], "(", ((max(resultArr)/numOfUsers)*10)+50, "% )", end="")
-        print("Worst rated:", GirlList[Statistics.bestWorstRating(zoznam, "worst")], "(", ((min(resultArr)/numOfUsers)*10)+50, "% )")
-        print("Most unknown:", GirlList[Statistics.mostUnknown(zoznam)])
+        print("Best rated:", ProductList[Statistics.bestWorstRating(zoznam, "top")], "(", ((max(resultArr) / numOfUsers) * 10) + 50, "% )", end="")
+        print("Worst rated:", ProductList[Statistics.bestWorstRating(zoznam, "worst")], "(", ((min(resultArr) / numOfUsers) * 10) + 50, "% )")
+        print("Most unknown:", ProductList[Statistics.mostUnknown(zoznam)])
         print("***STATISTICS***", end="\n")
 
 # ------------------------------------------------------------------------------------------
@@ -95,7 +96,7 @@ class Core:
     def similarity(TestUser, User):
         s = 0
         float = random.uniform(0.0, 0.9)
-        for i in range(numOfGirls):
+        for i in range(numOfProducts):
             if TestUser[i] == User[i] and (TestUser[i] != 0 or User[i] != 0):
                 s = s + pow(max(options), 2)
             s = s + TestUser[i] * User[i]
@@ -134,20 +135,21 @@ class Core:
                 if tempArr[i] == Other.findKthElement(tempArr, order):  # najdem maximum v tempArray
                     newArr = list()
                     newArr.append(zoznam[i])
+                    # dobry den pan externista Machajdik
                     print("\n")
                     print(order + 1, "best similar user(", int(Other.findKthElement(tempArr, order)), "):",
                           UserList[Other.findKthElement(tempArr, order, True)].upper())
                     print("Similarity:", Other.levelOfSimilarity(Other.findKthElement(tempArr, order)), "\n")
                     print("---Results---")
 
-            for i in range(numOfGirls):
+            for i in range(numOfProducts):
                 if TestUser[i] == 0:
-                    girlIndex = i
-                    if newArr[0][girlIndex] > 2:
-                        print(GirlList[i], ":", newArr[0][girlIndex])
+                    productIndex = i
+                    if newArr[0][productIndex] > 2:
+                        print(ProductList[i], ":", newArr[0][productIndex])
                     else:
-                        if newArr[0][girlIndex] < 0:
-                            print(GirlList[i], "not recommended.")
+                        if newArr[0][productIndex] < 0:
+                            print(ProductList[i], "not recommended.")
 
 # ------------------------------------------------------------------------------------------
 
@@ -159,8 +161,8 @@ class Other:
         global TestUser, name
         name = str(input("Okay, now type your name: "))
         print("Welcome,", name + "! Please, rate the following:\n")
-        for i in range(len(GirlList)):
-            print(GirlList[i])
+        for i in range(len(ProductList)):
+            print(ProductList[i])
             x = int(input("Your rating(-5, 5): "))
             if (x >= -5) and (x <= 5):
                 TestUser.append(x)
@@ -184,8 +186,8 @@ class Other:
     @staticmethod
     def printFakeData(self):
         global zoznam, TestUser, name
-        for i in range(numOfGirls):
-            print(GirlList[i], end="  ")
+        for i in range(numOfProducts):
+            print(ProductList[i], end="  ")
         print("\n")
         for i in range(numOfUsers):
             print(UserList[i], zoznam[i], end="\n")
@@ -212,7 +214,7 @@ class Other:
 data = str(input("Would you like random data or your own? Type 'rnd' or 'own':"))
 if data == "rnd":
     name = str(input("Okay, now type your name: "))
-    for i in range(numOfGirls):
+    for i in range(numOfProducts):
         TestUser.append(random.choice(options))
 elif data == "own":
     Other.enterData(True)
@@ -221,9 +223,10 @@ else:
 
 Other.printFakeData(True)
 Statistics.statistics(True)
+print("\n(Max / min similarity:", numOfProducts*(pow(max(options), 2)), "|", numOfProducts*(pow(max(options), 2))*(-1), ")")
 
 # Podmienky pre spustenie
-if (numOfUsers >= 3 and numOfGirls >= 3) and (numOfGirls >= numOfUsers) and (len(TestUser) == numOfGirls):
+if (numOfUsers >= 3 and numOfProducts >= 3) and (numOfProducts >= numOfUsers) and (len(TestUser) == numOfProducts):
     Core.main(True)
 else:
     print("\n***ERROR***\nCannot count your similarity. Check the following:")
