@@ -8,7 +8,7 @@ numOfGirls = 13
 numOfUsers = 8
 
 UserList = ["Dano", "Martin", "Filip", "Aron", "Peťo", "Juro", "Bero", "Matej"]
-GirlList = ["Product1", "Product2", "Product3", "Product4", "Product5", "Product6", "Product7", "Product8", "Product9", "Product10", "Product11", "Product12", "Product13"]
+GirlList = ["Skoda", "Mercedes", "Audi", "Toyota", "Honda", "Lamborghini", "Daewoo", "Ferrari", "Volkswagen", "Opel", "Ford", "Chevrolet", "Nissan"]
 
 TestUser = []
 
@@ -18,7 +18,6 @@ for i in range(numOfUsers):
     for j in range(numOfGirls):
         arr.append(random.choice(options))
     zoznam.append(arr)
-
 
 # ------------------------------------------------------------------------------------------
 
@@ -31,12 +30,14 @@ class Client:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((HOST, PORT))
 
-        arr = (
-        [[5, -5, 3, 0, 0, -3, 0, -3, 5, 3, -3, 5, 0], [5, -3, -5, 0, 0, 3, 3, 0, -5, 5, -3, 3, 0],
-         [-3, -5, 5, -5, -5, 5, 5, -5, 3, -3, 3, -3, -3],
-         [0, 3, 5, -5, -5, 0, -5, -3, 5, 3, 5, -5, -3], [3, 3, -3, 0, -5, -3, 3, 5, 0, 0, -5, 5, 5],
-         [3, -3, 5, -3, 3, 0, -5, 5, 3, 0, 3, 0, -5], [3, 5, -3, 3, -5, -5, 0, -5, 0, 3, 0, 5, -5],
-         [-3, -5, -3, 0, 5, 0, 5, -3, -3, 5, 5, -5, 3]])
+        arr = [[5, -5, 3, 0, 0, -3, 0, -3, 5, 3, -3, 5, 0],
+               [5, -3, -5, 0, 0, 3, 3, 0, -5, 5, -3, 3, 0],
+               [-3, -5, 5, -5, -5, 5, 5, -5, 3, -3, 3, -3, -3],
+               [0, 3, 5, -5, -5, 0, -5, -3, 5, 3, 5, -5, -3],
+               [3, 3, -3, 0, -5, -3, 3, 5, 0, 0, -5, 5, 5],
+               [3, -3, 5, -3, 3, 0, -5, 5, 3, 0, 3, 0, -5],
+               [3, 5, -3, 3, -5, -5, 0, -5, 0, 3, 0, 5, -5],
+               [-3, -5, -3, 0, 5, 0, 5, -3, -3, 5, 5, -5, 3]]
 
         for i in range(len(zoznam)):
             UserList.append(zoznam[i][0])
@@ -50,7 +51,6 @@ class Client:
         print('Received', repr(data_arr))
 
 # ------------------------------------------------------------------------------------------
-
 
 class Statistics:
 
